@@ -1,0 +1,439 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 3px;
+}
+
+body {
+  background-color: #000;
+  overflow: hidden;
+}
+
+a {
+  color: #aaa;
+  text-decoration: none;
+  display: inline-block;
+  transition: .3s;
+}
+a:hover {
+  color: #fff;
+}
+a::after {
+  content: "";
+  display: block;
+  margin-top: 5px;
+  border-bottom-width: 5px;
+  border-bottom-style: solid;
+  border-color: #e41d1d;
+  transition: all 0.3s ease 0s; 
+  -webkit-transition: all 0.3s ease 0s; 
+  width: 0px;
+}
+a:hover:after {
+  width: 100%;
+  border-color: #e41d1d;
+}
+a.-active::after {
+  width: 100%;
+  border-color: #fff;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+}
+
+@keyframes timer {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+#carousel {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+#carousel::after {
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,.7)), linear-gradient(rgba(0,0,0,.2), rgba(0,0,0,0), rgba(0,0,0,.2));
+  z-index: 5;
+}
+#carousel .carousel-list-item {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  list-style: none;
+}
+#carousel .carousel-list-item .carousel-item {
+  position: absolute;
+  opacity: 0;
+  transition: 1s;
+
+  animation-name: fade-out;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+#carousel .carousel-list-item .carousel-item.-active {
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+#carousel .carousel-list-item .carousel-item.-active > img {
+  opacity: 1;
+}
+#carousel .carousel-list-item .carousel-item img {
+  transition: 1s;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0;
+}
+#carousel .carousel-informations {
+  list-style: none;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: absolute;
+  left: 100px;
+  top: 0;
+  z-index: 10;
+}
+#carousel .carousel-informations .information {
+  position: absolute;
+  z-index: -10;
+  opacity: 0;
+  border-left: 3px solid transparent;
+  padding-left: 50px;
+  transition: 1s;
+  transition-timing-function: ease-in;
+
+  animation-name: fade-out;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+#carousel .carousel-informations .information.-active {
+  opacity: 1;
+  z-index: 10;
+  border-left: 3px solid #fff;
+
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: both;
+}
+#carousel .carousel-informations .information h3 {
+  color: #ddd;
+}
+
+#carousel .carousel-informations .information.-active .title {
+  opacity: 1;
+}
+#carousel .carousel-informations .information.-active .description {
+  opacity: 1;
+}
+#carousel .carousel-informations .information.-active h3 {
+  opacity: 1;
+}
+#carousel .carousel-informations .information.-active a {
+  opacity: 1;
+}
+
+#carousel .carousel-informations .information h3 {
+  opacity: 0;
+  transition: 1s;
+  transition-timing-function: ease-in;
+}
+#carousel .carousel-informations .information a {
+  opacity: 0;
+  transition: 1s;
+  transition-timing-function: ease-in;
+}
+
+.title {
+  opacity: 0;
+  font-size: 5em;
+  margin-bottom: 20px;
+  color: #fff;
+  transition: 1s;
+  transition-timing-function: ease-in;
+}
+.description {
+  opacity: 0;
+  font-size: 2em;
+  font-weight: 100;
+  color: #fff;
+  margin-bottom: 20px;
+  transition: 1s;
+  transition-timing-function: ease-in;
+}
+#carousel .carousel-informations .open {
+  font-size: 1.5em;
+}
+#carousel .carousel-control {
+  list-style: none;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: 0px;
+  right: 100px;
+  z-index: 10;
+}
+#carousel .carousel-control .carousel-control-bullet {
+  transition: .3s;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 10px;
+  transition: .3s;
+  opacity: .5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#carousel .carousel-control .carousel-control-bullet:hover {
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background: #e41d1d;
+}
+#carousel .carousel-control .carousel-control-bullet.-active {
+  opacity: 1;
+  background: #e41d1d;
+}
+#carousel .carousel-control .carousel-control-bullet:not(:first-child) {
+  margin-top: 15px;
+}
+
+#nav {
+  width: 100%;
+  padding: 50px 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+#nav .logo {
+  display: block;
+  letter-spacing: 5px;
+  font-weight: bold;
+  font-size: 3em;
+  color: #fff;
+  position: relative;
+}
+#nav .logo:hover:before {
+  width: 72%;
+}
+#nav .logo::before {
+  content: "";
+  transition: .5s;
+  transition-timing-function: ease-out;
+  display: block;
+  width: 0%;
+  height: calc(100% - 10px);
+  position: absolute;
+  background-color: red;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.menu {
+  list-style: none;
+  margin-left: auto;
+}
+.menu li {
+  display: block;
+}
+.menu li:not(:first-child) {
+  margin-left: 30px;
+}
+.menu li a.-active {
+  color: #fff;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 50px 100px;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+#footer .timer {
+  width: 200px;
+  height: 5px;
+  background-color: #888;
+  display: block;
+  position: relative;
+}
+#footer .timer span {
+  width: 0px;
+  height: 5px;
+  background-color: #e41d1d;
+  display: block;
+}
+.startTimer {
+  animation-name: timer;
+  animation-duration: 5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+}
+#footer .date {
+  display: flex;
+  align-items: center;
+}
+#footer .date span {
+  color: #fff;
+  letter-spacing: 10;
+  margin-left: 20px;
+  font-size: .9em;
+}
+#footer .date::before {
+  content: "";
+  width: 300px;
+  border-top: 2px solid #fff;
+  display: block;
+}
+
+@keyframes flip-article {
+  from {
+    opacity: 0;
+    transform: rotate(-30deg) translateX(-140vw);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0deg) translateX(0vh);
+  }
+}
+
+@keyframes show-content {
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+#article {
+  width: 100%;
+  min-height: 100%;
+  background-color: #222;
+  background-image: radial-gradient(rgba(0,0,0,0), rgba(0,0,0,.7));
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  transform: rotate(-30deg) translateX(-100vw);
+  overflow-x: hidden;
+}
+
+.open-article {
+  animation-name: flip-article;
+  animation-duration: .5s;
+  animation-fill-mode: both;
+}
+
+.show-content {
+  animation-name: show-content;
+  animation-delay: 1s;
+  animation-duration: 1.5s;
+  animation-fill-mode: both;
+}
+
+#article .content {
+  max-width: 1200px;
+  margin: 200px auto;
+  position: relative;
+}
+
+#article .content .information {
+  width: 60%;
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  z-index: 1;
+}
+#article .content .information::after {
+  content: "";
+  z-index: -1;
+  width: 350px;
+  height: 250px;
+  background-color: #e41d1d;
+  position: absolute;
+  top: -70px;
+  left: -50px;
+}
+
+#article .content .article-image {
+  width: 70%;
+  height: 400px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#article .content .box-center {
+  color: #fff;
+  margin: 0 auto;
+  margin-top: 300px;
+  width: 50%;
+}
